@@ -110,7 +110,7 @@ module ActiveScaffold::Actions
     def export_columns
       return @export_columns if defined? @export_columns
       @export_columns = active_scaffold_config.export.columns.reject { |col| params[:export_columns][col.to_sym].nil? }
-      sorting = active_scaffold_config.list.user.sorting || active_scaffold_config.list.sorting
+      sorting = active_scaffold_config.list.user&.sorting || active_scaffold_config.list.sorting
       sorting_columns = sorting.reject { |col, _| @export_columns.include?(col.name) }.map(&:first)
       @export_columns.map! { |col| active_scaffold_config.columns[col] }
       @export_columns += sorting_columns

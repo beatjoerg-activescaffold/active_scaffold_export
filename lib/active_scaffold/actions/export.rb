@@ -92,10 +92,7 @@ module ActiveScaffold::Actions
         end
       end
       customize_xlsx(pkg)
-      stream = pkg.to_stream # when adding rows to sheet, they won't pass to this stream if declared before. axlsx issue?
-      self.response_body = Enumerator.new do |y|
-        y << stream.read
-      end
+      self.response_body = pkg.to_stream.read
     end
 
     def worksheet_name(options = {})
